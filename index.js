@@ -37,7 +37,8 @@ app.get("/", (req, res) => {
   Article.findAll({
     order: [
       ['id', 'DESC']
-    ]
+    ],
+    limit: 4
   }).then(articles => {
     Category.findAll().then(categories => {
       res.render("index", {articles: articles, categories: categories});
@@ -57,9 +58,9 @@ app.get("/:slug", (req, res) => {
         res.render("article", {article: article, categories: categories});
       })
     }else{
-      res.render("/")
+      res.redirect("/")
     }
-  }).catch( err => {
+  }).catch( () => {
     res.redirect("/")
   })
 })
